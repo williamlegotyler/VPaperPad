@@ -5,6 +5,7 @@ Set Form=System.Form()
 Form.Text="VPaperPad"
 Form.Height=512
 Form.Width=1024
+Form.Center
 Set TextBox=Form.Controls.Add("TextBox")
 TextBox.MultiLine=True
 TextBox.WordWrap=False
