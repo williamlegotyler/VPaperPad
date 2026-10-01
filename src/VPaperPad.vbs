@@ -36,6 +36,14 @@ Set EditSelectAllMenu=EditMenu.MenuItems.Add()
 EditSelectAllMenu.Text="SelectAll"
 Set EditGotoMenu=EditMenu.MenuItems.Add()
 EditGotoMenu.Text="Goto"
+Set EditCopyMenu=EditMenu.MenuItems.Add()
+EditCopyMenu.Text="Copy"
+Set EditCutMenu=EditMenu.MenuItems.Add()
+EditCutMenu.Text="Cut"
+Set EditPasteMenu=EditMenu.MenuItems.Add()
+EditPasteMenu.Text="Paste"
+Set EditDeleteMenu=EditMenu.MenuItems.Add()
+EditDeleteMenu.Text="Delete"
 
 FileNewMenu.OnClick="FileNewMenu_Click()"
 FileOpenMenu.OnClick="FileOpenMenu_Click()"
@@ -45,6 +53,10 @@ HelpAboutMenu.OnClick="HelpAboutMenu_Click()"
 TextBox.OnTextChanged="TextChanged()"
 EditSelectAllMenu.OnClick="EditSelectAllMenu_Click()"
 EditGotoMenu.OnClick="EditGotoMenu_Click()"
+EditCopyMenu.OnClick="TextBox.Copy"
+EditCutMenu.OnClick="TextBox.Cut"
+EditPasteMenu.OnClick="TextBox.Paste"
+EditDeleteMenu.OnClick="EditDeleteMenu_Click()"
 
 Form.Visible="True"
 
@@ -124,4 +136,8 @@ Sub EditGotoMenu_Click()
     Else
         TextBox.SelectionStart=0
     End If
+End Sub
+
+Sub EditDeleteMenu_Click()
+    TextBox.SelectedText=""
 End Sub
