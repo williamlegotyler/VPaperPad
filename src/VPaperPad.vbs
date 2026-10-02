@@ -44,6 +44,8 @@ Set EditPasteMenu=EditMenu.MenuItems.Add()
 EditPasteMenu.Text="Paste"
 Set EditDeleteMenu=EditMenu.MenuItems.Add()
 EditDeleteMenu.Text="Delete"
+Set EditFindMenu=EditMenu.MenuItems.Add()
+EditFindMenu.Text="Find"
 
 FileNewMenu.OnClick="FileNewMenu_Click()"
 FileOpenMenu.OnClick="FileOpenMenu_Click()"
@@ -57,6 +59,7 @@ EditCopyMenu.OnClick="TextBox.Copy"
 EditCutMenu.OnClick="TextBox.Cut"
 EditPasteMenu.OnClick="TextBox.Paste"
 EditDeleteMenu.OnClick="EditDeleteMenu_Click()"
+EditFindMenu.OnClick="EditFindMenu_Click()"
 
 Form.Visible="True"
 
@@ -140,4 +143,11 @@ End Sub
 
 Sub EditDeleteMenu_Click()
     TextBox.SelectedText=""
+End Sub
+
+Sub EditFindMenu_Click()
+    WordToFind=InputBox("Enter the word to search for.", "VPaperPad")
+    WordFound=Instr(TextBox.Text, WordToFind)
+    TextBox.SelectionStart=WordFound-1
+    TextBox.SelectionLength=Len(WordToFind)
 End Sub
