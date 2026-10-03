@@ -29,7 +29,6 @@ Set HelpMenu=MainMenu.MenuItems.Add()
 HelpMenu.Text="Help"
 Set HelpAboutMenu=HelpMenu.MenuItems.Add()
 HelpAboutMenu.Text="About"
-Form.Menu=MainMenu
 Set EditMenu=MainMenu.MenuItems.Add()
 EditMenu.Text="Edit"
 Set EditSelectAllMenu=EditMenu.MenuItems.Add()
@@ -46,6 +45,11 @@ Set EditDeleteMenu=EditMenu.MenuItems.Add()
 EditDeleteMenu.Text="Delete"
 Set EditFindMenu=EditMenu.MenuItems.Add()
 EditFindMenu.Text="Find"
+Set OptionsMenu=MainMenu.MenuItems.Add()
+OptionsMenu.Text="Options"
+Set OptionsWordWrapMenu=OptionsMenu.MenuItems.Add()
+OptionsWordWrapMenu.Text="Word Wrap"
+Form.Menu=MainMenu
 
 FileNewMenu.OnClick="FileNewMenu_Click()"
 FileOpenMenu.OnClick="FileOpenMenu_Click()"
@@ -60,6 +64,7 @@ EditCutMenu.OnClick="TextBox.Cut"
 EditPasteMenu.OnClick="TextBox.Paste"
 EditDeleteMenu.OnClick="EditDeleteMenu_Click()"
 EditFindMenu.OnClick="EditFindMenu_Click()"
+OptionsWordWrapMenu.OnClick="OptionsWordWrapMenu_Click()"
 
 Form.Visible="True"
 
@@ -150,4 +155,12 @@ Sub EditFindMenu_Click()
     WordFound=Instr(TextBox.Text, WordToFind)
     TextBox.SelectionStart=WordFound-1
     TextBox.SelectionLength=Len(WordToFind)
+End Sub
+
+Sub OptionsWordWrapMenu_Click()
+    If TextBox.WordWrap=0 Then
+        TextBox.WordWrap=1
+    ElseIf TextBox.WordWrap=-1 Then
+        TextBox.WordWrap=0
+    End If
 End Sub
