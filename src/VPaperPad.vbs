@@ -1,4 +1,6 @@
-Set System = CreateObject("KiXtart.System")
+Dim CurrentPath
+
+Set System=CreateObject("KiXtart.System")
 Set fso=CreateObject("Scripting.FileSystemObject")
 
 Set Form=System.Form()
@@ -23,6 +25,8 @@ Set FileOpenMenu=FileMenu.MenuItems.Add()
 FileOpenMenu.Text="Open"
 Set FileSaveMenu=FileMenu.MenuItems.Add()
 FileSaveMenu.Text="Save"
+Set FileSaveAsMenu=FileMenu.MenuItems.Add()
+FileSaveAsMenu.Text="Save As"
 Set FileExitMenu=FileMenu.MenuItems.Add()
 FileExitMenu.Text="Exit"
 Set HelpMenu=MainMenu.MenuItems.Add()
@@ -65,6 +69,7 @@ EditPasteMenu.OnClick="TextBox.Paste"
 EditDeleteMenu.OnClick="EditDeleteMenu_Click()"
 EditFindMenu.OnClick="EditFindMenu_Click()"
 OptionsWordWrapMenu.OnClick="OptionsWordWrapMenu_Click()"
+FileSaveAsMenu.OnClick="FileSaveAsMenu_Click()"
 
 Form.Visible="True"
 
@@ -87,17 +92,25 @@ Sub FileOpenMenu_Click()
         End If
     End If
     Form.Text = "VPaperPad"
+    CurrentPath=Form.OpenFileDialog.Filename
 End Sub
 
 Sub FileSaveMenu_Click()
-    Set Form.SaveFileDialog = System.SaveFileDialog()
-    Form.SaveFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
-    Form.SaveFileDialog.ShowDialog()
-    If Form.SaveFileDialog.Filename<>"" Then
+    If CurrentPath="" Then
+        Set Form.SaveFileDialog = System.SaveFileDialog()
+        Form.SaveFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
+        Form.SaveFileDialog.ShowDialog()
+        If Form.SaveFileDialog.Filename<>"" Then
+            Set File=fso.CreateTextFile(Form.SaveFileDialog.Filename)
+            File.Write TextBox.Text
+        End If
+        Form.Text = "VPaperPad"
+        CurrentPath=Form.SaveFileDialog.Filename
+    Else
         Set File=fso.CreateTextFile(Form.SaveFileDialog.Filename)
         File.Write TextBox.Text
+        Form.Text = "VPaperPad"
     End If
-    Form.Text = "VPaperPad"
 End Sub
 
 Sub HelpAboutMenu_Click()
@@ -110,6 +123,8 @@ Sub FileNewMenu_Click()
         TextBox.Text=""
     End If
     Form.Text = "VPaperPad"
+    CurrentPath=""
+    Wscript.Echo CurrentPath
 End Sub
 
 Sub TextChanged()
@@ -163,4 +178,17 @@ Sub OptionsWordWrapMenu_Click()
     ElseIf TextBox.WordWrap=-1 Then
         TextBox.WordWrap=0
     End If
+End Sub
+
+Sub FileSaveAsMenu_Click()
+    Set Form.SaveFileDialog = System.SaveFileDialog()
+    Form.SaveFileDialog.Filter = "All files (*.*)|*.*"
+    Form.SaveFileDialog.ShowDialog()
+    If Form.SaveFileDialog.Filename<>"" Then
+        Set File=fso.CreateTextFile(Form.SaveFileDialog.Filename)
+        File.Write TextBox.Text
+    End If
+    Form.Text="VPaperPad"
+    CurrentPath=Form.SaveFileDialog.Filename
+    Form.Text="VPaperPad"
 End Sub
