@@ -29,10 +29,6 @@ Set FileSaveAsMenu=FileMenu.MenuItems.Add()
 FileSaveAsMenu.Text="Save As"
 Set FileExitMenu=FileMenu.MenuItems.Add()
 FileExitMenu.Text="Exit"
-Set HelpMenu=MainMenu.MenuItems.Add()
-HelpMenu.Text="Help"
-Set HelpAboutMenu=HelpMenu.MenuItems.Add()
-HelpAboutMenu.Text="About"
 Set EditMenu=MainMenu.MenuItems.Add()
 EditMenu.Text="Edit"
 Set EditSelectAllMenu=EditMenu.MenuItems.Add()
@@ -53,6 +49,10 @@ Set OptionsMenu=MainMenu.MenuItems.Add()
 OptionsMenu.Text="Options"
 Set OptionsWordWrapMenu=OptionsMenu.MenuItems.Add()
 OptionsWordWrapMenu.Text="Word Wrap"
+Set HelpMenu=MainMenu.MenuItems.Add()
+HelpMenu.Text="Help"
+Set HelpAboutMenu=HelpMenu.MenuItems.Add()
+HelpAboutMenu.Text="About"
 Form.Menu=MainMenu
 
 FileNewMenu.OnClick="FileNewMenu_Click()"
@@ -79,8 +79,8 @@ Do While Form.Visible
 Loop
 
 Sub FileOpenMenu_Click()
-    Set Form.OpenFileDialog = System.OpenFileDialog()
-    Form.OpenFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
+    Set Form.OpenFileDialog=System.OpenFileDialog()
+    Form.OpenFileDialog.Filter="txt files (*.txt)|*.txt|All files (*.*)|*.*"
     Form.OpenFileDialog.ShowDialog()
     If Form.OpenFileDialog.Filename<>"" Then
         Set File=fso.OpenTextFile(Form.OpenFileDialog.Filename)
@@ -91,25 +91,25 @@ Sub FileOpenMenu_Click()
             TextBox.Text=""
         End If
     End If
-    Form.Text = "VPaperPad"
+    Form.Text="VPaperPad"
     CurrentPath=Form.OpenFileDialog.Filename
 End Sub
 
 Sub FileSaveMenu_Click()
     If CurrentPath="" Then
-        Set Form.SaveFileDialog = System.SaveFileDialog()
-        Form.SaveFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
+        Set Form.SaveFileDialog=System.SaveFileDialog()
+        Form.SaveFileDialog.Filter="txt files (*.txt)|*.txt|All files (*.*)|*.*"
         Form.SaveFileDialog.ShowDialog()
         If Form.SaveFileDialog.Filename<>"" Then
             Set File=fso.CreateTextFile(Form.SaveFileDialog.Filename)
             File.Write TextBox.Text
         End If
-        Form.Text = "VPaperPad"
+        Form.Text="VPaperPad"
         CurrentPath=Form.SaveFileDialog.Filename
     Else
         Set File=fso.CreateTextFile(Form.SaveFileDialog.Filename)
         File.Write TextBox.Text
-        Form.Text = "VPaperPad"
+        Form.Text="VPaperPad"
     End If
 End Sub
 
@@ -122,7 +122,7 @@ Sub FileNewMenu_Click()
     If TextBox.Text<>"" Then
         TextBox.Text=""
     End If
-    Form.Text = "VPaperPad"
+    Form.Text="VPaperPad"
     CurrentPath=""
     Wscript.Echo CurrentPath
 End Sub
@@ -130,7 +130,7 @@ End Sub
 Sub TextChanged()
     Wscript.Sleep 10
     If Form.Text <> "*VPaperPad" Then
-        Form.Text = "*VPaperPad"
+        Form.Text="*VPaperPad"
     End If
 End Sub
 
@@ -181,8 +181,8 @@ Sub OptionsWordWrapMenu_Click()
 End Sub
 
 Sub FileSaveAsMenu_Click()
-    Set Form.SaveFileDialog = System.SaveFileDialog()
-    Form.SaveFileDialog.Filter = "All files (*.*)|*.*"
+    Set Form.SaveFileDialog=System.SaveFileDialog()
+    Form.SaveFileDialog.Filter="All files (*.*)|*.*"
     Form.SaveFileDialog.ShowDialog()
     If Form.SaveFileDialog.Filename<>"" Then
         Set File=fso.CreateTextFile(Form.SaveFileDialog.Filename)
