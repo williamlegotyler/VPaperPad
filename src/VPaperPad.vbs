@@ -1,4 +1,5 @@
 Dim CurrentPath
+Dim WordToFind
 
 Set System=CreateObject("KiXtart.System")
 Set fso=CreateObject("Scripting.FileSystemObject")
@@ -45,6 +46,8 @@ Set EditDeleteMenu=EditMenu.MenuItems.Add()
 EditDeleteMenu.Text="Delete"
 Set EditFindMenu=EditMenu.MenuItems.Add()
 EditFindMenu.Text="Find"
+Set EditFindNextMenu=EditMenu.MenuItems.Add()
+EditFindNextMenu.Text="Find Next"
 Set OptionsMenu=MainMenu.MenuItems.Add()
 OptionsMenu.Text="Options"
 Set OptionsWordWrapMenu=OptionsMenu.MenuItems.Add()
@@ -70,6 +73,7 @@ EditDeleteMenu.OnClick="EditDeleteMenu_Click()"
 EditFindMenu.OnClick="EditFindMenu_Click()"
 OptionsWordWrapMenu.OnClick="OptionsWordWrapMenu_Click()"
 FileSaveAsMenu.OnClick="FileSaveAsMenu_Click()"
+EditFindNextMenu.OnClick="EditFindNextMenu_Click()"
 
 Form.Visible="True"
 
@@ -191,4 +195,10 @@ Sub FileSaveAsMenu_Click()
     Form.Text="VPaperPad"
     CurrentPath=Form.SaveFileDialog.Filename
     Form.Text="VPaperPad"
+End Sub
+
+Sub EditFindNextMenu_Click()
+    WordFound=Instr(TextBox.Text, WordToFind)
+    TextBox.SelectionStart=WordFound-1
+    TextBox.SelectionLength=Len(WordToFind)
 End Sub
