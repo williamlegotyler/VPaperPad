@@ -182,7 +182,7 @@ End Sub
 
 Sub FileSaveAsMenu_Click()
     Set Form.SaveFileDialog=System.SaveFileDialog()
-    Form.SaveFileDialog.Filter="All files (*.*)|*.*"
+    Form.SaveFileDialog.Filter="All files (*.*)|*.*|txt files (*.txt)|*.txt"
     Form.SaveFileDialog.ShowDialog()
     If Form.SaveFileDialog.Filename<>"" Then
         Set File=fso.CreateTextFile(Form.SaveFileDialog.Filename)
