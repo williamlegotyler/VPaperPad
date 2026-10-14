@@ -16,6 +16,7 @@ TextBox.ScrollBars=3
 TextBox.Anchor=15
 TextBox.Height=Form.ClientHeight
 TextBox.Width=Form.ClientWidth
+TextBox.SetFocus
 
 Set MainMenu=System.MainMenu()
 Set FileMenu=MainMenu.MenuItems.Add()
