@@ -172,9 +172,15 @@ End Sub
 
 Sub EditFindMenu_Click()
     WordToFind=InputBox("Enter the word to search for.", "VPaperPad")
-    WordFound=Instr(TextBox.Text, WordToFind)
-    TextBox.SelectionStart=WordFound-1
-    TextBox.SelectionLength=Len(WordToFind)
+    If WordToFind<>"" Then
+        If Mid(TextBox.Text, TextBox.SelectionStart+1, TextBox.SelectionLength)=WordToFind Then
+            WordFound=Instr(TextBox.SelectionStart+1+TextBox.SelectionLength, TextBox.Text, WordToFind)
+        Else
+            WordFound=Instr(TextBox.SelectionStart+1, TextBox.Text, WordToFind)
+        End If
+        TextBox.SelectionStart=WordFound-1
+        TextBox.SelectionLength=Len(WordToFind)
+    End If
 End Sub
 
 Sub OptionsWordWrapMenu_Click()
@@ -199,7 +205,11 @@ Sub FileSaveAsMenu_Click()
 End Sub
 
 Sub EditFindNextMenu_Click()
-    WordFound=Instr(TextBox.Text, WordToFind)
+    If Mid(TextBox.Text, TextBox.SelectionStart+1, TextBox.SelectionLength)=WordToFind Then
+        WordFound=Instr(TextBox.SelectionStart+1+TextBox.SelectionLength, TextBox.Text, WordToFind)
+    Else
+        WordFound=Instr(TextBox.SelectionStart+1, TextBox.Text, WordToFind)
+    End If
     TextBox.SelectionStart=WordFound-1
     TextBox.SelectionLength=Len(WordToFind)
 End Sub
