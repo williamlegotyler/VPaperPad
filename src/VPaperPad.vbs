@@ -178,8 +178,10 @@ Sub EditFindMenu_Click()
         Else
             WordFound=Instr(TextBox.SelectionStart+1, TextBox.Text, WordToFind)
         End If
-        TextBox.SelectionStart=WordFound-1
-        TextBox.SelectionLength=Len(WordToFind)
+        If WordFound>0 Then
+            TextBox.SelectionStart=WordFound-1
+            TextBox.SelectionLength=Len(WordToFind)
+        End If
     End If
 End Sub
 
@@ -210,6 +212,8 @@ Sub EditFindNextMenu_Click()
     Else
         WordFound=Instr(TextBox.SelectionStart+1, TextBox.Text, WordToFind)
     End If
-    TextBox.SelectionStart=WordFound-1
-    TextBox.SelectionLength=Len(WordToFind)
+    If WordFound>0 Then
+        TextBox.SelectionStart=WordFound-1
+        TextBox.SelectionLength=Len(WordToFind)
+    End If
 End Sub
