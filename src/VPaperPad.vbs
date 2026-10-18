@@ -171,7 +171,7 @@ Sub EditDeleteMenu_Click()
 End Sub
 
 Sub EditFindMenu_Click()
-    WordToFind=InputBox("Enter the word to search for.", "VPaperPad")
+    WordToFind=InputBox("Enter the word to search for.", "VPaperPad", WordToFind)
     If WordToFind<>"" Then
         If Mid(TextBox.Text, TextBox.SelectionStart+1, TextBox.SelectionLength)=WordToFind Then
             WordFound=Instr(TextBox.SelectionStart+1+TextBox.SelectionLength, TextBox.Text, WordToFind)
