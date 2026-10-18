@@ -207,6 +207,9 @@ Sub FileSaveAsMenu_Click()
 End Sub
 
 Sub EditFindNextMenu_Click()
+    If WordToFind="" Then
+        WordToFind=InputBox("Enter the word to search for.", "VPaperPad")
+    End If
     If Mid(TextBox.Text, TextBox.SelectionStart+1, TextBox.SelectionLength)=WordToFind Then
         WordFound=Instr(TextBox.SelectionStart+1+TextBox.SelectionLength, TextBox.Text, WordToFind)
     Else
