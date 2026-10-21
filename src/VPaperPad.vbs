@@ -49,6 +49,8 @@ Set EditFindMenu=EditMenu.MenuItems.Add()
 EditFindMenu.Text="Find"
 Set EditFindNextMenu=EditMenu.MenuItems.Add()
 EditFindNextMenu.Text="Find Next"
+Set EditReplaceMenu=EditMenu.MenuItems.Add()
+EditReplaceMenu.Text="Replace"
 Set OptionsMenu=MainMenu.MenuItems.Add()
 OptionsMenu.Text="Options"
 Set OptionsWordWrapMenu=OptionsMenu.MenuItems.Add()
@@ -75,6 +77,7 @@ EditFindMenu.OnClick="EditFindMenu_Click()"
 OptionsWordWrapMenu.OnClick="OptionsWordWrapMenu_Click()"
 FileSaveAsMenu.OnClick="FileSaveAsMenu_Click()"
 EditFindNextMenu.OnClick="EditFindNextMenu_Click()"
+EditReplaceMenu.OnClick="EditReplaceMenu_Click()"
 
 Form.Visible="True"
 
@@ -218,5 +221,24 @@ Sub EditFindNextMenu_Click()
     If WordFound>0 Then
         TextBox.SelectionStart=WordFound-1
         TextBox.SelectionLength=Len(WordToFind)
+    End If
+End Sub
+
+Sub EditReplaceMenu_Click()
+    WordToReplace=InputBox("Enter the word to search for.", "VPaperPad", WordToReplace)
+    WordReplaced=InputBox("Enter the word to replace.", "VPaperPad", WordReplaced)
+    If WordToReplace<>"" Then
+        If Mid(TextBox.Text, TextBox.SelectionStart+1, TextBox.SelectionLength)=WordToReplace Then
+            WordFound=Instr(TextBox.SelectionStart+1+TextBox.SelectionLength, TextBox.Text, WordToReplace)
+        Else
+            WordFound=Instr(TextBox.SelectionStart+1, TextBox.Text, WordToReplace)
+        End If
+        If WordFound>0 Then
+            TextBox.SelectionStart=WordFound-1
+            TextBox.SelectionLength=Len(WordToReplace)
+            TextBox.SelectedText=WordReplaced
+            TextBox.SelectionStart=TextBox.SelectionStart-Len(WordReplaced)
+            TextBox.SelectionLength=Len(WordReplaced)
+        End If
     End If
 End Sub
