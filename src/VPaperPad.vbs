@@ -184,6 +184,8 @@ Sub EditFindMenu_Click()
         If WordFound>0 Then
             TextBox.SelectionStart=WordFound-1
             TextBox.SelectionLength=Len(WordToFind)
+        Else
+            Wscript.Echo "Word not found."
         End If
     End If
 End Sub
@@ -213,6 +215,7 @@ Sub EditFindNextMenu_Click()
     If WordToFind="" Then
         WordToFind=InputBox("Enter the word to search for.", "VPaperPad")
     End If
+    If WordToFind<>"" Then
     If Mid(TextBox.Text, TextBox.SelectionStart+1, TextBox.SelectionLength)=WordToFind Then
         WordFound=Instr(TextBox.SelectionStart+1+TextBox.SelectionLength, TextBox.Text, WordToFind)
     Else
@@ -221,6 +224,9 @@ Sub EditFindNextMenu_Click()
     If WordFound>0 Then
         TextBox.SelectionStart=WordFound-1
         TextBox.SelectionLength=Len(WordToFind)
+    Else
+        Wscript.Echo "Word not found."
+    End If
     End If
 End Sub
 
@@ -239,6 +245,8 @@ Sub EditReplaceMenu_Click()
             TextBox.SelectedText=WordReplaced
             TextBox.SelectionStart=TextBox.SelectionStart-Len(WordReplaced)
             TextBox.SelectionLength=Len(WordReplaced)
+        Else
+            Wscript.Echo "Word not found."
         End If
     End If
 End Sub
